@@ -1,0 +1,41 @@
+# Terraform
+*.tfstate
+*.tfstate.*
+.terraform/
+*.tfvars
+.terraform.lock.hcl
+terraform.tfstate.backup
+
+# AWS credentials
+*.pem
+*.key
+*.secret
+.env
+.aws/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Temporary files
+*.tmp
+*.temp
+
+# Backup files
+*.backup
+backup/
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Lambda packages (keep source, ignore generated)
+*.zip
+!src/ai-scripts/*.zip

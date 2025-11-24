@@ -1,0 +1,151 @@
+terraform {
+  required_providers {
+    aws = {
+      source  = "hashicorp/aws"
+      version = "~> 5.0"
+    }
+  }
+}
+
+provider "aws" {
+  region = "us-east-1"
+}
+
+locals {
+  project_name = "secure-governance-demo"
+  environment  = "demo"
+}
+
+# Core AI Security
+resource "aws_kms_key" "ai_secure" {
+  description             = "KMS key for AI data encryption"
+  deletion_window_in_days = 7
+  enable_key_rotation     = true
+
+  tags = {
+    Project = local.project_name
+    Purpose = "ai-security"
+  }
+}
+
+resource "aws_kms_alias" "ai_secure" {
+  name          = "alias/${local.project_name}-ai-data"
+  target_key_id = aws_kms_key.ai_secure.key_id
+}
+
+# IAM Role for Lambda
+resource "aws_iam_role" "ai_lambda_role" {
+  name = "${local.project_name}-ai-lambda-role"
+
+  assume_role_policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Action = "sts:AssumeRole"
+        Effect = "Allow"
+        Principal = {
+          Service = "lambda.amazonaws.com"
+        }
+      }
+    ]
+  })
+}
+
+resource "aws_iam_role_policy" "ai_lambda_policy" {
+  name = "${local.project_name}-ai-lambda-policy"
+  role = aws_iam_role.ai_lambda_role.id
+
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Effect = "Allow"
+        Action = [
+          "bedrock:ListFoundationModels",
+          "bedrock:GetFoundationModel",
+          "bedrock:InvokeModel"
+        ]
+        Resource = "*"
+      },
+      {
+        Effect = "Allow"
+        Action = [
+          "kms:Decrypt",
+          "kms:GenerateDataKey"
+        ]
+        Resource = aws_kms_key.ai_secure.arn
+      },
+      {
+        Effect = "Allow"
+        Action = [
+          "logs:CreateLogGroup",
+          "logs:CreateLogStream",
+          "logs:PutLogEvents"
+        ]
+        Resource = "*"
+      }
+    ]
+  })
+}
+
+# LAMBDA FUNCTION - Fixed environment variables
+resource "aws_lambda_function" "ai_secure_processor" {
+  filename      = "../src/ai-scripts/secure_ai_processor.zip"
+  function_name = "${local.project_name}-secure-ai"
+  role          = aws_iam_role.ai_lambda_role.arn
+  handler       = "secure_ai_processor.lambda_handler"
+  runtime       = "python3.9"
+  timeout       = 30
+
+  environment {
+    variables = {
+      SECURITY_LEVEL = "enterprise"
+      PROJECT_NAME   = local.project_name
+      # REMOVED: AWS_REGION - This is reserved and set automatically by Lambda
+      CUSTOM_REGION  = "us-east-1"  # Use a different name
+    }
+  }
+
+  tags = {
+    Project     = local.project_name
+    Environment = local.environment
+    Component   = "ai-security-lambda"
+  }
+}
+
+# Lambda Permission for testing
+resource "aws_lambda_permission" "test_invoke" {
+  statement_id  = "AllowExecutionFromCLI"
+  action        = "lambda:InvokeFunction"
+  function_name = aws_lambda_function.ai_secure_processor.function_name
+  principal     = "*"
+}
+
+output "lambda_status" {
+  value = "✅ Lambda function with BedRock security"
+}
+
+output "lambda_function_name" {
+  value = aws_lambda_function.ai_secure_processor.function_name
+}
+
+output "lambda_arn" {
+  value = aws_lambda_function.ai_secure_processor.arn
+}
+
+output "kms_key_arn" {
+  value = aws_kms_key.ai_secure.arn
+}
+
+output "test_commands" {
+  value = <<EOT
+# Test the secure AI Lambda:
+aws lambda invoke --function-name ${aws_lambda_function.ai_secure_processor.function_name} --payload '{"test": true}' /tmp/lambda-output.json
+
+# View results:
+cat /tmp/lambda-output.json
+
+# Check Lambda configuration:
+aws lambda get-function --function-name ${aws_lambda_function.ai_secure_processor.function_name}
+EOT
+}

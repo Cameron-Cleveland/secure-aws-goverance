@@ -1,0 +1,83 @@
+# ==================== TERRAFORM ====================
+*.tfstate
+*.tfstate.*
+.terraform/
+*.tfvars
+.terraform.lock.hcl
+terraform.tfstate.backup*
+*.backup
+.terraform.d/
+
+# ==================== AWS CREDENTIALS ====================
+*.pem
+*.key
+*.secret
+.env
+.aws/
+aws_config.txt
+
+# ==================== OS & EDITOR FILES ====================
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*~
+.vscode/
+.idea/
+*.code-workspace
+
+# ==================== TEMPORARY FILES ====================
+*.tmp
+*.temp
+*.log
+logs/
+tmp/
+temp/
+
+# ==================== PYTHON ====================
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+.venv/
+pip-log.txt
+pip-delete-this-directory.txt
+
+# ==================== NODE.JS ====================
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# ==================== DOCKER ====================
+.docker/
+docker-compose.override.yml
+
+# ==================== ZIP FILES ====================
+# Keep source ZIPs in ai-scripts, ignore others
+*.zip
+!src/ai-scripts/*.zip
+!src/lambda-functions/*.zip
+
+# ==================== BACKUP FILES ====================
+backup/
+*.bak
+*_backup
+
+# ==================== MACOS ====================
+.AppleDouble
+.LSOverride
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+
+# ==================== WINDOWS ====================
+$RECYCLE.BIN/
+Desktop.ini
+
+# ==================== LINUX ====================
+*~
+.fuse_hidden*

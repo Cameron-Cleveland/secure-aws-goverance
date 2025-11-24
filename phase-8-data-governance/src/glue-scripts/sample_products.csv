@@ -1,0 +1,9 @@
+product_id,name,category,price,stock,created_date
+1,Laptop,Electronics,999.99,50,2024-01-15
+2,Smartphone,Electronics,699.99,100,2024-01-16
+3,Tablet,Electronics,399.99,75,2024-01-17
+4,Desk Chair,Furniture,199.99,30,2024-01-18
+5,Monitor,Electronics,299.99,40,2024-01-19
+6,Keyboard,Electronics,79.99,200,2024-01-20
+7,Mouse,Electronics,49.99,150,2024-01-21
+8,Desk Lamp,Furniture,39.99,80,2024-01-22
