@@ -9,7 +9,7 @@
 - [Quick Start Demos](#quick-start-demos)
 - [Evidence & Screenshots](#evidence--screenshots)
 
-## Business Solutions
+## business solutions
 
 ### Problem 1: "HR Onboarding Security & Efficiency"
 **Challenge**: 14-day manual onboarding with PII exposure risks
@@ -68,7 +68,7 @@ Results:
 
 📋 Accuracy: 100% consistent compliance checks
 
-## Technologies Used
+## technologies used
 🔐 Identity & Access Management
 AWS IAM Identity Center - Centralized multi-account access
 
@@ -141,7 +141,7 @@ Amazon Athena - SQL query service
 
 Amazon QuickSight - Business intelligence
 
-## Project Structure
+## project structure
 text
 Enterprise-Cloud-Platform/
 ├── phase-1-governance/              # Control Tower & LZA
@@ -156,10 +156,10 @@ Enterprise-Cloud-Platform/
 ├── screenshots/                     # Evidence of implementation
 ├── emergency-cleanup.sh             # Cleanup scripts
 └── README.md                        # This file
-## Architecture Diagrams
+## architecture diagrams
 Comprehensive architecture diagrams available in the /diagrams/ folder
 
-## Measurable Outcomes
+## measurable outcomes
 Department	Before	After	Improvement
 HR	14-day onboarding
 Manual PII handling
@@ -189,7 +189,7 @@ Real-time monitoring
 Predictable spending	💰 60% savings
 📊 Full visibility
 📈 Predictable
-## Quick Start Demos
+## quick start demos
 1. HR Automation Demo
 bash
 cd phase-10-ai-ml-governance/src/ai-scripts
@@ -210,7 +210,7 @@ bash
 cd phase-10-ai-ml-governance/terraform
 terraform apply -auto-approve
 # Demonstrates: BedRock + KMS + VPC endpoints
-## Evidence & Screenshots
+## evidence & screenshots
 The /screenshots/ directory contains comprehensive evidence:
 
 AWS Control Tower - Multi-account governance
