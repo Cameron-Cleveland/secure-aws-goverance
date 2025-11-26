@@ -68,7 +68,8 @@ Results:
 
 📋 Accuracy: 100% consistent compliance checks
 
-Technologies Used
+## Technologies Used
+
 🔐 Identity & Access Management
 AWS IAM Identity Center - Centralized multi-account access
 
@@ -141,7 +142,8 @@ Amazon Athena - SQL query service
 
 Amazon QuickSight - Business intelligence
 
-Project Structure
+## Project Structure
+
 text
 Enterprise-Cloud-Platform/
 ├── phase-1-governance/              # Control Tower & LZA
@@ -156,7 +158,9 @@ Enterprise-Cloud-Platform/
 ├── screenshots/                     # Evidence of implementation
 ├── emergency-cleanup.sh             # Cleanup scripts
 └── README.md                        # This file
-Architecture Diagrams
+
+## Architecture Diagrams
+
 Comprehensive architecture diagrams available in the /diagrams/ folder:
 
 Overall Solution Architecture - End-to-end workflow
@@ -169,7 +173,8 @@ E-commerce Platform - Containerized scaling
 
 Security & Compliance - Automated monitoring
 
-Measurable Outcomes
+## Measurable Outcomes
+
 Department	Before	After	Improvement
 HR	14-day onboarding
 Manual PII handling
@@ -199,7 +204,9 @@ Real-time monitoring
 Predictable spending	💰 60% savings
 📊 Full visibility
 📈 Predictable
-Quick Start Demos
+
+## Quick Start Demos
+
 1. HR Automation Demo
 bash
 cd phase-10-ai-ml-governance/src/ai-scripts
@@ -220,7 +227,9 @@ bash
 cd phase-10-ai-ml-governance/terraform
 terraform apply -auto-approve
 # Demonstrates: BedRock + KMS + VPC endpoints
-Evidence & Screenshots
+
+## Evidence & Screenshots
+
 The /screenshots/ directory contains comprehensive evidence:
 
 AWS Control Tower - Multi-account governance
