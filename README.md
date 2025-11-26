@@ -1,27 +1,21 @@
 # 🚀 Enterprise Cloud Platform: Real-World AWS Solutions
 
-🚀 Enterprise Cloud Platform: Real-World AWS Solutions
-📋 Table of Contents
-Business Solutions
+## 📋 Table of Contents
+- [Business Solutions](#business-solutions)
+- [Technologies Used](#technologies-used)
+- [Project Structure](#project-structure)
+- [Architecture Diagrams](#architecture-diagrams)
+- [Measurable Outcomes](#measurable-outcomes)
+- [Quick Start Demos](#quick-start-demos)
+- [Evidence & Screenshots](#evidence--screenshots)
 
-Technologies Used
+## Business Solutions
 
-Project Structure
+### Problem 1: "HR Onboarding Security & Efficiency"
+**Challenge**: 14-day manual onboarding with PII exposure risks
+**Solution**: AI-powered HR automation workflow
 
-Architecture Diagrams
-
-Measurable Outcomes
-
-Quick Start Demos
-
-Evidence & Screenshots
-
-🎯 Business Solutions Delivered
-Problem 1: "HR Onboarding Security & Efficiency"
-Challenge: 14-day manual onboarding with PII exposure risks
-Solution: AI-powered HR automation workflow
-
-python
+```python
 # Architecture: S3 → Comprehend → BedRock → IAM → CloudTrail
 Documents → AWS BedRock → IAM Roles → Security Validation
 Results:
@@ -74,7 +68,7 @@ Results:
 
 📋 Accuracy: 100% consistent compliance checks
 
-🛠️ Technologies Used
+Technologies Used
 🔐 Identity & Access Management
 AWS IAM Identity Center - Centralized multi-account access
 
@@ -147,7 +141,7 @@ Amazon Athena - SQL query service
 
 Amazon QuickSight - Business intelligence
 
-📁 Project Structure
+Project Structure
 text
 Enterprise-Cloud-Platform/
 ├── phase-1-governance/              # Control Tower & LZA
@@ -162,38 +156,10 @@ Enterprise-Cloud-Platform/
 ├── screenshots/                     # Evidence of implementation
 ├── emergency-cleanup.sh             # Cleanup scripts
 └── README.md                        # This file
-🏗️ Architecture Highlights
-Landing Zone with LZA
-bash
-# Phase 9: Landing Zone Accelerator
-phase-9-lza-implementation/
-├── deploy-lza-final.sh
-├── LZA_IMPLEMENTATION.md
-└── terraform/
-    └── modules/lza-patterns/
-        ├── main.tf          # LZA configuration
-        ├── providers.tf     # AWS providers
-        └── variables.tf     # Input variables
-IAM Identity Center Implementation
-bash
-# Phase 7: Centralized Identity Management
-phase-7-iam-identity-center/terraform/
-├── main.tf                  # Identity Center config
-├── outputs.tf              # Permission set outputs
-└── variables.tf            # Group definitions
-AI Governance with BedRock
-bash
-# Phase 10: AI/ML Security
-phase-10-ai-ml-governance/
-├── src/ai-scripts/
-│   ├── hr_onboarding_workflow.py    # AI-powered HR
-│   ├── bedrock_governance_demo.py   # Model governance
-│   └── secure_ai_processor.py       # KMS encryption
-└── terraform/modules/
-    ├── bedrock/              # BedRock access controls
-    ├── bedrock-security/     # Security configurations
-    └── guardrails/          # AI usage policies
-📊 Measurable Business Outcomes
+Architecture Diagrams
+Comprehensive architecture diagrams available in the /diagrams/ folder
+
+Measurable Outcomes
 Department	Before	After	Improvement
 HR	14-day onboarding
 Manual PII handling
@@ -223,7 +189,7 @@ Real-time monitoring
 Predictable spending	💰 60% savings
 📊 Full visibility
 📈 Predictable
-🚀 Quick Start Demos
+Quick Start Demos
 1. HR Automation Demo
 bash
 cd phase-10-ai-ml-governance/src/ai-scripts
@@ -244,7 +210,7 @@ bash
 cd phase-10-ai-ml-governance/terraform
 terraform apply -auto-approve
 # Demonstrates: BedRock + KMS + VPC endpoints
-📸 Evidence & Screenshots
+Evidence & Screenshots
 The /screenshots/ directory contains comprehensive evidence:
 
 AWS Control Tower - Multi-account governance
@@ -266,8 +232,6 @@ CloudTrail - API activity logs
 🎖️ Role-Specific Value
 🔧 Cloud Engineer / DevOps
 Infrastructure as Code: Terraform modules for all services
-
-CI/CD Pipelines: Automated testing and deployment
 
 Containerization: ECS Fargate with Docker
 
