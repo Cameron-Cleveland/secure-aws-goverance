@@ -9,7 +9,7 @@
 - [Quick Start Demos](#quick-start-demos)
 - [Evidence & Screenshots](#evidence--screenshots)
 
-## business solutions
+## Business Solutions
 
 ### Problem 1: "HR Onboarding Security & Efficiency"
 **Challenge**: 14-day manual onboarding with PII exposure risks
@@ -68,7 +68,7 @@ Results:
 
 📋 Accuracy: 100% consistent compliance checks
 
-## technologies used
+Technologies Used
 🔐 Identity & Access Management
 AWS IAM Identity Center - Centralized multi-account access
 
@@ -141,7 +141,7 @@ Amazon Athena - SQL query service
 
 Amazon QuickSight - Business intelligence
 
-## project structure
+Project Structure
 text
 Enterprise-Cloud-Platform/
 ├── phase-1-governance/              # Control Tower & LZA
@@ -156,10 +156,20 @@ Enterprise-Cloud-Platform/
 ├── screenshots/                     # Evidence of implementation
 ├── emergency-cleanup.sh             # Cleanup scripts
 └── README.md                        # This file
-## architecture diagrams
-Comprehensive architecture diagrams available in the /diagrams/ folder
+Architecture Diagrams
+Comprehensive architecture diagrams available in the /diagrams/ folder:
 
-## measurable outcomes
+Overall Solution Architecture - End-to-end workflow
+
+Landing Zone with LZA - Multi-account governance
+
+AI Governance Architecture - BedRock security controls
+
+E-commerce Platform - Containerized scaling
+
+Security & Compliance - Automated monitoring
+
+Measurable Outcomes
 Department	Before	After	Improvement
 HR	14-day onboarding
 Manual PII handling
@@ -189,7 +199,7 @@ Real-time monitoring
 Predictable spending	💰 60% savings
 📊 Full visibility
 📈 Predictable
-## quick start demos
+Quick Start Demos
 1. HR Automation Demo
 bash
 cd phase-10-ai-ml-governance/src/ai-scripts
@@ -210,7 +220,7 @@ bash
 cd phase-10-ai-ml-governance/terraform
 terraform apply -auto-approve
 # Demonstrates: BedRock + KMS + VPC endpoints
-## evidence & screenshots
+Evidence & Screenshots
 The /screenshots/ directory contains comprehensive evidence:
 
 AWS Control Tower - Multi-account governance
@@ -301,4 +311,3 @@ I can help implement similar solutions with proven results.
 ⭐ If you appreciate practical cloud solutions that deliver real business value, please star this repository!
 
 Connect with me to discuss how we can solve your cloud challenges using AWS technologies like LZA, IAM Identity Center, BedRock, and more.
-
