@@ -16,7 +16,7 @@ pipeline {
 
         stage('Security: SCA & IaC Scan (Snyk)') {
             steps {
-                withCredentials([string(credentialsId: 'Snyk API token(1\28\2026)', variable: 'SNYK_TOKEN')]) {
+                withCredentials([string(credentialsId: 'SNYK_TOKEN', variable: 'SNYK_TOKEN')]) {
                     script {
                         echo "Running Snyk Security Scans..."
                         // Local installation allows direct 'sh' calls
