@@ -16,13 +16,14 @@ pipeline {
 
         stage('Security: SCA & IaC Scan (Snyk)') {
             steps {
-                // Verified: Using SNYK_TOKEN_TEXT as Secret Text
                 withCredentials([string(credentialsId: 'SNYK_TOKEN_TEXT', variable: 'SNYK_TOKEN')]) {
                     script {
-                        def snykHome = tool 'snyk-cli'
-                        echo "Running Snyk Security Scans..."
-                        sh "${snykHome}/snyk test --token=${SNYK_TOKEN} --severity-threshold=high || true"
-                        sh "${snykHome}/snyk iac test --token=${SNYK_TOKEN} || true"
+                        def snykTool = tool 'snyk-cli'
+                        echo "Finding Snyk binary..."
+                        def snykPath = sh(script: "find ${snykTool} -name snyk -type f", returnStdout: true).trim()
+                        
+                        sh "${snykPath} test --token=${SNYK_TOKEN} --severity-threshold=high || true"
+                        sh "${snykPath} iac test --token=${SNYK_TOKEN} || true"
                     }
                 }
             }
@@ -41,7 +42,6 @@ pipeline {
             steps {
                 script {
                     def imageTag = "${VM_IP}:8082/${JFROG_REPO}/${APP_NAME}:${env.BUILD_NUMBER}"
-                    // Trivy is lightweight and works well on 1GB RAM
                     sh "trivy image --severity CRITICAL --exit-code 0 ${imageTag}"
                 }
             }
@@ -49,7 +49,6 @@ pipeline {
 
         stage('Infrastructure: Terraform Plan') {
             steps {
-                // Matches your exact Azure credential names
                 withCredentials([
                     string(credentialsId: 'Application ID', variable: 'AZ_CLIENT_ID'),
                     string(credentialsId: 'Azure-Secrets-ID', variable: 'AZ_CLIENT_SECRET'),
@@ -62,11 +61,24 @@ pipeline {
                 }
             }
         }
+
+        stage('Deploy: Push to Artifactory') {
+            steps {
+                script {
+                    def imageTag = "${VM_IP}:8082/${JFROG_REPO}/${APP_NAME}:${env.BUILD_NUMBER}"
+                    // This logs into your JFrog instance and pushes the image
+                    withCredentials([usernamePassword(credentialsId: 'JFROG_CREDENTIALS', usernameVariable: 'JF_USER', passwordVariable: 'JF_PASS')]) {
+                        sh "docker login ${VM_IP}:8082 -u ${JF_USER} -p ${JF_PASS}"
+                        sh "docker push ${imageTag}"
+                    }
+                }
+            }
+        }
     }
     
     post {
         always {
-            // Essential for your small VM to prevent "Disk Full" errors
+            // Very important for your 1GB VM to prevent the disk from filling up
             cleanWs()
         }
     }
