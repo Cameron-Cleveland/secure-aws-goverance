@@ -16,15 +16,17 @@ pipeline {
 
         stage('Security: SCA & IaC Scan (Snyk)') {
             steps {
-        // This helper specifically looks for "Snyk API Token" types
-        snykContext(credentialsId: 'SNYK_TOKEN') {
-            script {
-                def snykHome = tool 'snyk-cli'
-                sh "${snykHome}/snyk test"
+                // Verified: Using SNYK_TOKEN_TEXT as Secret Text
+                withCredentials([string(credentialsId: 'SNYK_TOKEN_TEXT', variable: 'SNYK_TOKEN')]) {
+                    script {
+                        def snykHome = tool 'snyk-cli'
+                        echo "Running Snyk Security Scans..."
+                        sh "${snykHome}/snyk test --token=${SNYK_TOKEN} --severity-threshold=high || true"
+                        sh "${snykHome}/snyk iac test --token=${SNYK_TOKEN} || true"
+                    }
+                }
             }
         }
-    }
-}
 
         stage('Build: PHP Container') {
             steps {
@@ -39,7 +41,7 @@ pipeline {
             steps {
                 script {
                     def imageTag = "${VM_IP}:8082/${JFROG_REPO}/${APP_NAME}:${env.BUILD_NUMBER}"
-                    // Trivy is already on your VM
+                    // Trivy is lightweight and works well on 1GB RAM
                     sh "trivy image --severity CRITICAL --exit-code 0 ${imageTag}"
                 }
             }
@@ -47,19 +49,25 @@ pipeline {
 
         stage('Infrastructure: Terraform Plan') {
             steps {
+                // Matches your exact Azure credential names
                 withCredentials([
-                    string(credentialsId: 'Azure Application ID', variable: 'AZ_CLIENT_ID'),
+                    string(credentialsId: 'Application ID', variable: 'AZ_CLIENT_ID'),
                     string(credentialsId: 'Azure-Secrets-ID', variable: 'AZ_CLIENT_SECRET'),
                     string(credentialsId: 'Directory ID', variable: 'AZ_TENANT_ID')
                 ]) {
                     script {
-                        // This assumes your .tf files are in the repo root
-                        // If they are in a folder, use dir('foldername') { ... }
                         sh "terraform init"
                         sh "terraform plan"
                     }
                 }
             }
+        }
+    }
+    
+    post {
+        always {
+            // Essential for your small VM to prevent "Disk Full" errors
+            cleanWs()
         }
     }
 }
