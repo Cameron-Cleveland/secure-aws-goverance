@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        VM_IP = "172.188.40.16" 
+        VM_IP = "65.52.198.39" 
         JFROG_REPO = "tf-terraform" 
         APP_NAME = "healthcare-php-app"
     }
@@ -16,17 +16,15 @@ pipeline {
 
         stage('Security: SCA & IaC Scan (Snyk)') {
             steps {
-                withCredentials([string(credentialsId: 'SNYK_TOKEN', variable: 'SNYK_TOKEN')]) {
-                    script {
-                        echo "Running Snyk Security Scans..."
-                        // Local installation allows direct 'sh' calls
-                        sh "snyk auth ${SNYK_TOKEN}"
-                        sh "snyk test --severity-threshold=high || true"
-                        sh "snyk iac test || true"
-                    }
-                }
+        // This helper specifically looks for "Snyk API Token" types
+        snykContext(credentialsId: 'SNYK_TOKEN') {
+            script {
+                def snykHome = tool 'snyk-cli'
+                sh "${snykHome}/snyk test"
             }
         }
+    }
+}
 
         stage('Build: PHP Container') {
             steps {
