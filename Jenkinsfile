@@ -4,7 +4,7 @@ pipeline {
     environment {
         // Update these two for your specific environment
         VM_IP = "172.188.40.16" 
-        JFROG_REPO = "healthcare-docker-local" 
+        JFROG_REPO = "tf-terraform" 
         APP_NAME = "healthcare-php-app"
     }
 
