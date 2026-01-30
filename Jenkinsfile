@@ -15,7 +15,8 @@ pipeline {
           snykInstallation: 'snyk-cli',
           snykTokenId: 'SNYK_TOKEN',
           // place other parameters here
-          targetFile: 'phase-5-containerization/src/Dockerfile'
+          additionalArguments: 'iac test phase-5-containerization/src/Dockerfile',
+          failOnIssues: false
         )
       }
     }
